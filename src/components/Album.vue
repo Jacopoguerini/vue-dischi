@@ -18,23 +18,27 @@ export default {
     @import '../style/variables.scss';
 
     .album {
-        padding: 10px;
+        height: 280px;
+        padding: 20px 10px;
         background-color: $secondaryBackground;
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
         text-align: center;
+        margin-bottom: 15px;
 
         img {
-            width: 100px;
+            width: 150px;
+            margin-bottom: 15px;
+            cursor: pointer;
         }
 
         h3 {
-            font-size: 16px;
+            font-size: 14px;
             color: $titleColor;
             text-transform: uppercase;
             font-weight: 600;
+            padding: 0 15px;
         }
 
         h5 {

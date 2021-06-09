@@ -50,7 +50,7 @@ section {
     }
 
     .column {
-        width: calc((100% / 5) - 25px);
+        width: calc((100% / 5) - 3%);
     }
 
 }

@@ -33,9 +33,11 @@ export default {
         axios
             .get(this.apiUrl)
             .then(
-               (response) => {
-                this.albums = response.data.response;
-                this.loading = false;
+                (response) => {
+                    this.albums = response.data.response;
+                    setTimeout( () => {
+                        this.loading = false;
+                    }, 3800);
                 }
             )
             .catch();

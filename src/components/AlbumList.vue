@@ -35,11 +35,8 @@ export default {
             .then(
                (response) => {
                 this.albums = response.data.response;
-                setTimeout( () => {
-                    this.loading = false;
-                }, 3000);
-               }
-            
+                this.loading = false;
+                }
             )
             .catch();
     }

@@ -1,12 +1,12 @@
 <template>
   <section class="container">
 
-    <div class="albums row">
+    <div class="albums row" v-if="!loading">
         <div class="column" v-for="(album, index) in albums" :key="index">
             <Album :item="album"/>
         </div>
-
     </div>
+    <Loader message="Spotify app" v-else />
 
   </section>
 </template>
@@ -14,16 +14,19 @@
 <script> 
 import Album from './Album';
 import axios from 'axios';
+import Loader from './Loader';
 
 export default {
     name: "AlbumList",
     components: {
-        Album
+        Album,
+        Loader
     },
     data: function() {
         return {
             apiUrl: 'https://flynn.boolean.careers/exercises/api/array/music',
-            albums: []
+            albums: [],
+            loading: true
         }
     },
     created: function() {
@@ -32,6 +35,9 @@ export default {
             .then(
                (response) => {
                 this.albums = response.data.response;
+                setTimeout( () => {
+                    this.loading = false;
+                }, 3000);
                }
             
             )

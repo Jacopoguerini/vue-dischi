@@ -6,8 +6,7 @@
 
 <script>
 export default {
-    name: "Loader",
-    props: [ "message" ]
+    name: "Loader"
 }
 </script>
 

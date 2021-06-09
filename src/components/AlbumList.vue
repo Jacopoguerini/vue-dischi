@@ -6,7 +6,7 @@
             <Album :item="album"/>
         </div>
     </div>
-    <Loader message="Spotify app" v-else />
+    <Loader v-else />
 
   </section>
 </template>

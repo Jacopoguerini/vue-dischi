@@ -3,7 +3,7 @@
     <Header />
 
     <main>
-
+      <AlbumList />
 
     </main>
 
@@ -13,11 +13,13 @@
 
 <script>
 import Header from './components/Header';
+import AlbumList from './components/AlbumList';
 
 export default {
   name: 'App',
   components: {
-    Header
+    Header,
+    AlbumList
   }
 }
 </script>
@@ -33,6 +35,9 @@ export default {
 main {
   height: calc(100vh - 60px);
   background-color: $mainBackground;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 </style>

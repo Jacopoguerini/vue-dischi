@@ -1,7 +1,7 @@
 <template>
-  <section class="albums container">
+  <section class="container">
 
-    <div class="row">
+    <div class="albums row">
         <div class="column" v-for="(album, index) in albums" :key="index">
             <Album :item="album"/>
         </div>
@@ -31,8 +31,9 @@ export default {
             .get(this.apiUrl)
             .then(
                (response) => {
-                this.albums = response.data;
+                this.albums = response.data.response;
                }
+            
             )
             .catch();
     }
@@ -43,12 +44,15 @@ export default {
 @import '../style/variables.scss';
 
 section {
-    background-color: red;
-    height: 500px;
+
+    .albums {
+        justify-content: center;
+    }
 
     .column {
         width: calc((100% / 5) - 25px);
     }
+
 }
 
 

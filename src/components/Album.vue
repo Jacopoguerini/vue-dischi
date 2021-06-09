@@ -1,6 +1,9 @@
 <template>
     <div class="album">
         <img class="img-fluid" :src="item.poster" :alt="item.title">
+        <h3>{{ item.title }}</h3>
+        <h5>{{ item.author }}<br>
+            {{ item.year }}</h5>
     </div>
 </template>
 
@@ -15,8 +18,29 @@ export default {
     @import '../style/variables.scss';
 
     .album {
-        height: 100px;
-        background-color: chartreuse;
+        padding: 10px;
+        background-color: $secondaryBackground;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+        img {
+            width: 100px;
+        }
+
+        h3 {
+            font-size: 16px;
+            color: $titleColor;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        h5 {
+            font-size: 12px;
+            color: $secondaryColor;
+        }
     }
 
 </style>

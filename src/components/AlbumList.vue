@@ -1,10 +1,10 @@
 <template>
     <section class="container">
 
-        <GenreSelection />
+        <GenreSelection @genreSelected="onGenreSelected"/>
 
         <div class="albums row" v-if="!loading">
-            <div class="column" v-for="(album, index) in albums" :key="index">
+            <div class="column" v-for="(album, index) in albumsGenreFiltered" :key="index">
                 <Album :item="album"/>
             </div>
         </div>
@@ -31,20 +31,41 @@ export default {
             apiUrl: 'https://flynn.boolean.careers/exercises/api/array/music',
             albums: [],
             loading: true,
+            selectedGenre: ""
         }
     },
     created: function() {
-        axios
-            .get(this.apiUrl)
-            .then(
-                (response) => {
-                    this.albums = response.data.response;
-                    // setTimeout( () => {
-                        this.loading = false;
-                    // }, 3800);
+    axios
+        .get(this.apiUrl)
+        .then(
+            (response) => {
+                this.albums = response.data.response;
+                // setTimeout( () => {
+                    this.loading = false;
+                // }, 3800);
+            }
+        )
+        .catch();
+    },
+    methods: {
+        onGenreSelected(event) {
+            this.selectedGenre = event;
+            console.log("Hai selezionato il genere: " + this.selectedGenre);
+        }
+    },
+    computed: {
+        albumsGenreFiltered() {
+            if (this.selectedGenre == "All") {
+                return this.albums;
+            }
+            const newArray = this.albums.filter(
+                (element) => {
+                    return element.genre
+                        .includes(this.selectedGenre);
                 }
-            )
-            .catch();
+            );
+            return newArray;
+        }
     }
 }
 </script>

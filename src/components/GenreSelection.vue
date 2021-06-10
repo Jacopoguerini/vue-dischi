@@ -1,14 +1,14 @@
 <template>
     <div class="position-absolute top-0 end-0 mt-3 me-3">
-        <select v-model="selected">
-            <option disabled selected value="">Seleziona un genere </option>
-            <option 
-                v-for="(album, index) in albums"
-                :key="index">
-                {{ album.genre }}
-            </option>
+        <select v-model="selection" @change="$emit('genreSelected', selection)">
+            <option disabled selected value="">Seleziona un genere</option>
+            <option value="All">Tutti i generi</option>
+            <option value="Rock">Rock</option>
+            <option value="Pop">Pop</option>
+            <option value="Jazz">Jazz</option>
+            <option value="Metal">Metal</option>
         </select>
-        <!-- <span>{{ selected }}</span> -->
+        <!-- <span>{{ selection }}</span> -->
     </div>
 </template>
 
@@ -17,7 +17,7 @@ export default {
     name: "GenreSelection",
     data: function() {
         return {
-            selected: ""
+            selection: ""
         }
     }
 }

@@ -60,8 +60,7 @@ export default {
             }
             const newArray = this.albums.filter(
                 (element) => {
-                    return element.genre
-                        .includes(this.selectedGenre);
+                    return element.genre.includes(this.selectedGenre);
                 }
             );
             return newArray;

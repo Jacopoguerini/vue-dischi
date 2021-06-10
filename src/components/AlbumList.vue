@@ -1,7 +1,12 @@
 <template>
     <section class="container">
 
-        <GenreSelection @genreSelected="onGenreSelected"/>
+        <div class="filters position-absolute top-0 end-0 me-3 mt-1">
+            <GenreSelection @genreSelected="onGenreSelected" :item="albums"/>
+
+            <ArtistSelection @artistSelected="onArtistSelected"
+            :item="albums"/>
+        </div>
 
         <div class="albums row" v-if="!loading">
             <div class="column" v-for="(album, index) in albumsGenreFiltered" :key="index">
@@ -11,27 +16,30 @@
         <Loader v-else />
 
     </section>
-</template>
+</template>s
 
 <script> 
 import Album from './Album';
 import axios from 'axios';
 import Loader from './Loader';
 import GenreSelection from './GenreSelection';
+import ArtistSelection from './ArtistSelection';
 
 export default {
     name: "AlbumList",
     components: {
         Album,
         Loader,
-        GenreSelection
+        GenreSelection,
+        ArtistSelection
     },
     data: function() {
         return {
             apiUrl: 'https://flynn.boolean.careers/exercises/api/array/music',
             albums: [],
             loading: true,
-            selectedGenre: ""
+            selectedGenre: "",
+            selectedArtist: ""
         }
     },
     created: function() {
@@ -50,7 +58,9 @@ export default {
     methods: {
         onGenreSelected(event) {
             this.selectedGenre = event;
-            console.log("Hai selezionato il genere: " + this.selectedGenre);
+        },
+        onArtistSelected(event) {
+            this.selectedArtist = event;
         }
     },
     computed: {
@@ -61,6 +71,17 @@ export default {
             const newArray = this.albums.filter(
                 (element) => {
                     return element.genre.includes(this.selectedGenre);
+                }
+            );
+            return newArray;
+        },
+        albumsArtistFiltered() {
+            if (this.selectedArtist == "All") {
+                return this.albums;
+            }
+            const newArray = this.albums.filter(
+                (element) => {
+                    return element.artist.includes(this.selectedArtist);
                 }
             );
             return newArray;

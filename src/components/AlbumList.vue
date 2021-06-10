@@ -1,16 +1,7 @@
 <template>
     <section class="container">
-        <div class="position-absolute top-0 end-0 mt-3 me-3">
-            <select v-model="selected">
-                <option disabled selected value="">Seleziona un genere</option>
-                <option 
-                    v-for="(genre, index) in albums"
-                    :key="index">
-                    {{ genre.genre }}
-                </option>
-            </select>
-        <!-- <span>{{ selected }}</span> -->
-        </div>
+
+        <GenreSelection />
 
         <div class="albums row" v-if="!loading">
             <div class="column" v-for="(album, index) in albums" :key="index">
@@ -26,12 +17,14 @@
 import Album from './Album';
 import axios from 'axios';
 import Loader from './Loader';
+import GenreSelection from './GenreSelection';
 
 export default {
     name: "AlbumList",
     components: {
         Album,
-        Loader
+        Loader,
+        GenreSelection
     },
     data: function() {
         return {

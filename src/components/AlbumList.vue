@@ -1,14 +1,25 @@
 <template>
-  <section class="container">
-
-    <div class="albums row" v-if="!loading">
-        <div class="column" v-for="(album, index) in albums" :key="index">
-            <Album :item="album"/>
+    <section class="container">
+        <div class="position-absolute top-0 end-0 mt-3 me-3">
+            <select v-model="selected">
+                <option disabled selected value="">Seleziona un genere</option>
+                <option 
+                    v-for="(genre, index) in albums"
+                    :key="index">
+                    {{ genre.genre }}
+                </option>
+            </select>
+        <!-- <span>{{ selected }}</span> -->
         </div>
-    </div>
-    <Loader v-else />
 
-  </section>
+        <div class="albums row" v-if="!loading">
+            <div class="column" v-for="(album, index) in albums" :key="index">
+                <Album :item="album"/>
+            </div>
+        </div>
+        <Loader v-else />
+
+    </section>
 </template>
 
 <script> 
@@ -26,7 +37,7 @@ export default {
         return {
             apiUrl: 'https://flynn.boolean.careers/exercises/api/array/music',
             albums: [],
-            loading: true
+            loading: true,
         }
     },
     created: function() {
@@ -35,9 +46,9 @@ export default {
             .then(
                 (response) => {
                     this.albums = response.data.response;
-                    setTimeout( () => {
+                    // setTimeout( () => {
                         this.loading = false;
-                    }, 3800);
+                    // }, 3800);
                 }
             )
             .catch();
@@ -56,6 +67,10 @@ section {
 
     .column {
         width: calc((100% / 5) - 3%);
+    }
+
+    .filter {
+        text-align: right;
     }
 
 }

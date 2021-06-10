@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="position-relative">
     <Header />
 
     <main>
@@ -20,6 +20,13 @@ export default {
   components: {
     Header,
     AlbumList,
+  },
+  data: function() {
+    return {
+      selected: ''
+    }
+  },
+  methods: {
   }
 }
 </script>

@@ -98,17 +98,6 @@ export default {
                     return element.genre.includes(this.selectedGenre);
                 }
             );
-        },
-        albumsArtistFiltered() {
-            if (this.selectedArtist == "All") {
-                return this.albums;
-            }
-            const newArray = this.albums.filter(
-                (element) => {
-                    return element.artist.includes(this.selectedArtist);
-                }
-            );
-            return newArray;
         }
     }
 }

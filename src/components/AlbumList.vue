@@ -2,14 +2,14 @@
     <section class="container">
 
         <div class="filters position-absolute top-0 end-0 me-3 mt-1">
-            <GenreSelection @genreSelected="onGenreSelected" :item="albums"/>
+            <GenreSelection @genreSelected="onGenreSelected" :genres="allGenres"/>
 
             <ArtistSelection @artistSelected="onArtistSelected"
             :item="albums"/>
         </div>
 
         <div class="albums row" v-if="!loading">
-            <div class="column" v-for="(album, index) in albumsGenreFiltered" :key="index">
+            <div class="column" v-for="(album, index) in albumsFiltered" :key="index">
                 <Album :item="album"/>
             </div>
         </div>
@@ -37,6 +37,8 @@ export default {
         return {
             apiUrl: 'https://flynn.boolean.careers/exercises/api/array/music',
             albums: [],
+            allGenres: [],
+            artists: [],
             loading: true,
             selectedGenre: "",
             selectedArtist: ""
@@ -48,9 +50,24 @@ export default {
         .then(
             (response) => {
                 this.albums = response.data.response;
+
+                this.albums.forEach(
+                    (element) => {
+                        if (!this.allGenres.includes(element.genre)) {
+                            this.allGenres.push(element.genre);
+                        }
+                        
+                        if (!this.artists.includes(element.genre)) {
+                            this.artists.push(element.author);
+                        } 
+                    }
+                );
+                // console.log(this.allGenres);
+                // console.log(this.artists);
+
                 // setTimeout( () => {
-                    this.loading = false;
-                // }, 3800);
+                this.loading = false;
+                // }, 3500);
             }
         )
         .catch();
@@ -58,22 +75,29 @@ export default {
     methods: {
         onGenreSelected(event) {
             this.selectedGenre = event;
+            this.selectedArtist = "All";
         },
         onArtistSelected(event) {
             this.selectedArtist = event;
+            this.selectedGenre = "All";
         }
     },
     computed: {
-        albumsGenreFiltered() {
-            if (this.selectedGenre == "All") {
+        albumsFiltered: function() {
+            if (this.selectedGenre == "All" && this.selectedArtist == "All") {
                 return this.albums;
+            } else if (this.selectedArtist != "All") {
+                return this.albums.filter(
+                    (element) => {
+                    return element.author.includes(this.selectedArtist);
+                });
             }
-            const newArray = this.albums.filter(
+
+            return this.albums.filter(
                 (element) => {
                     return element.genre.includes(this.selectedGenre);
                 }
             );
-            return newArray;
         },
         albumsArtistFiltered() {
             if (this.selectedArtist == "All") {

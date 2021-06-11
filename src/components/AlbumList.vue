@@ -2,10 +2,15 @@
     <section class="container">
 
         <div class="filters position-absolute top-0 end-0 me-3 mt-1">
-            <GenreSelection @genreSelected="onGenreSelected" :genres="allGenres"/>
+            <GenreSelection
+            @genreSelected="onGenreSelected"
+            :genres="allGenres"
+            />
 
-            <ArtistSelection @artistSelected="onArtistSelected"
-            :item="albums"/>
+            <ArtistSelection
+            @artistSelected="onArtistSelected"
+            :item="albums"
+            />
         </div>
 
         <div class="albums row" v-if="!loading">
